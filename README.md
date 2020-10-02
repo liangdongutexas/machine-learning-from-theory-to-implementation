@@ -1,8 +1,7 @@
 # Machine Learning and Statistics
 ## Table of Contents
 1. [General principles in Machine Learning](#principles)
-2. [General theory of statistics](#statistics)
-3. [Machine Learning Models: Theory and Algorithm](#theory)
+2. [Machine Learning Models: Theory and Algorithm](#theory)
 
 ## General principles in Machine Learning <a name="principles"></a>
 * **what is?** Machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience **without** being explicitly programmed.
