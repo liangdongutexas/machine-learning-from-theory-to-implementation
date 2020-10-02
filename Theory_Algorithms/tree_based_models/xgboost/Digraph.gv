@@ -1,0 +1,23 @@
+// XGboost Trees
+digraph {
+	// Decision Tree
+	{
+		"predicted value is 5.110771439292214"
+	}
+	// Decision Tree
+	{
+		"predicted value is 0.46461576765233814"
+	}
+	// Decision Tree
+	{
+		"predicted value is 0.042237757959149094"
+	}
+	// Decision Tree
+	{
+		"predicted value is 0.003839801488952203"
+	}
+	// Decision Tree
+	{
+		"predicted value is 0.00034909287933260197"
+	}
+}

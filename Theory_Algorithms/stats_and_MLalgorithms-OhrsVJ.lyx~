@@ -1,0 +1,2709 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 10cm
+\leftmargin 1.5cm
+\rightmargin 1.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Theoretical Summary of Machine Learning Algorithms 
+\end_layout
+
+\begin_layout Author
+Liang Dong
+\end_layout
+
+\begin_layout Standard
+This is the note to summarize the mathematical theory of machine learning
+ algorithms.
+ The article is organized by ML algorithms, each of which contains two parts:
+ mathematical theory and pseudocode.
+ 
+\end_layout
+
+\begin_layout Part
+Statistics
+\end_layout
+
+\begin_layout Standard
+Two philosophy: the book of 
+\begin_inset Quotes eld
+\end_inset
+
+Bayesian ideas and data analysis
+\begin_inset Quotes erd
+\end_inset
+
+ says 
+\begin_inset Quotes eld
+\end_inset
+
+Fundamentally, the field of statistics is about using probability models
+ to analyze data.
+ There are two major philosophical positions about the use of probability
+ models.
+ One is that probabilities are determined by the outside world.
+ The other is that probabilities exist in people’s heads.
+ Historically, probability theory was developed to explain games of chance.
+ For example, the physical structures involved in rolling dice, spinning
+ roulette wheels, and dealing well-shuffled decks of cards suggest obvious
+ probabilities for various outcomes.
+ The notion of probability as a belief is more subtle.
+ For example, suppose that you are in my presence when I flip a coin.
+ Prior to flipping the coin, the physical mechanism involved suggests probabilit
+ies of 0.5 for each of the outcomes heads and tails.
+ But now I have flipped the coin, looked at the result, but not told you
+ the out-come.
+ As long as you believe I am not cheating you, you would naturally continue
+ to describe the probabilities for heads and tails as 0.5.
+ But this probability is no longer the probability associ- ated with the
+ physical mechanism involved, because you and I have different probabilities.
+ I know whether the coin is heads or tails, and your probability is simply
+ describing your personal state of knowledge.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Frenquentist
+\end_layout
+
+\begin_layout Section
+Basic mathematical defintion
+\end_layout
+
+\begin_layout Definition
+Random Variable:
+\end_layout
+
+\begin_layout Standard
+To understand the definition of random variable, we need the following definitio
+n:
+\end_layout
+
+\begin_layout Definition*
+The power set (or powerset) of any set S is the set of all subsets of S,
+ including the empty set and S itself, variously denoted as P(S).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition*
+\begin_inset Formula $\sigma$
+\end_inset
+
+-algebra: Let X be some set, and let 
+\begin_inset Formula $P(X)$
+\end_inset
+
+ represent its power set.
+ Then a subset 
+\begin_inset Formula $\Sigma\subseteq P(X)$
+\end_inset
+
+ is called 
+\begin_inset Formula $\sigma$
+\end_inset
+
+-algebra if it satisfies the following three properties:
+\end_layout
+
+\begin_layout Enumerate
+X is in Σ, and X is considered to be the universal set in the following
+ context.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Σ is closed under complementation: If A is in Σ, then so is its complement,
+ X 
+\backslash
+ A.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Σ is closed under countable unions: If A1, A2, A3, ...
+ are in Σ, then so is A = A1 ∪ A2 ∪ A3 ∪ … .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition*
+Consider a set X and a σ-algebra 
+\begin_inset Formula $\mathcal{A}$
+\end_inset
+
+ on X.
+ Then the tuple 
+\begin_inset Formula $(X,\mathcal{A})$
+\end_inset
+
+ is called a measurable space.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+Sample: In mathematical terms, given a probability distribution F, a random
+ sample of length n (where n may be any positive integer) is a set of realizatio
+ns of n independent, idendtically distributed (iid) random variables with
+ distribution F.
+\end_layout
+
+\begin_layout Section
+Entropy
+\end_layout
+
+\begin_layout Standard
+For discrete probability distributions 
+\begin_inset Formula $P$
+\end_inset
+
+ and 
+\begin_inset Formula $Q$
+\end_inset
+
+ defined on the same probability space, 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+, the Kullback–Leibler divergence from 
+\begin_inset Formula $Q$
+\end_inset
+
+ to 
+\begin_inset Formula $P$
+\end_inset
+
+ is defined to be
+\begin_inset Formula 
+\begin{align*}
+D_{KL}(P||Q)\equiv & \int dxP(x)\log\frac{P(x)}{Q(x)}.
+\end{align*}
+
+\end_inset
+
+In the context of machine learning, 
+\begin_inset Formula $D_{KL}(P||Q)$
+\end_inset
+
+ is often called the information gain achieved if 
+\begin_inset Formula $Q$
+\end_inset
+
+ is used instead of 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Optimization method
+\end_layout
+
+\begin_layout Subsection
+Maximum likelihood estimation (MLE) and Maximum a posteriori (MAP) estimation
+ 
+\end_layout
+
+\begin_layout Standard
+There is a sample with iid unit 
+\begin_inset Formula $\{X^{i}\}$
+\end_inset
+
+ and realization 
+\begin_inset Formula $\{x^{i}\}$
+\end_inset
+
+ where 
+\begin_inset Formula $i$
+\end_inset
+
+ is the label of unit in the sample.
+ Suppose the form of the probability density function for each unit is known
+ up to some parameter 
+\begin_inset Formula $p(X|\theta)$
+\end_inset
+
+, then the probability that the sample takes the current realization is
+\begin_inset Formula 
+\begin{align*}
+P(\{x\}|\theta)= & \prod_{i}p(x^{i}|\theta).
+\end{align*}
+
+\end_inset
+
+The MLE for 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is to find the maximum:
+\begin_inset Formula 
+\begin{align*}
+\theta_{MLE}= & \arg\max_{\theta}\log P(\{x\}|\theta)\\
+= & \arg\max_{\theta}\log\prod_{i}p(x^{i}|\theta)\\
+= & \arg\max_{\theta}\sum_{i}\log p(x^{i}|\theta)
+\end{align*}
+
+\end_inset
+
+where i is the label of sample unit.
+ 
+\end_layout
+
+\begin_layout Standard
+MAP on the hand applies to the scenario of Bayes.
+ Recall that:
+\begin_inset Formula 
+\begin{align*}
+P(\theta|\{X\})\propto & P(\{X\}|\theta)p(\theta),
+\end{align*}
+
+\end_inset
+
+so the MAP for 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\theta_{MAP}= & \arg\max_{\theta}\log P(\{x\}|\theta)p(\theta)\\
+= & \arg\max_{\theta}[\log\prod_{i}p(x^{i}|\theta)+\log p(\theta)]\\
+= & \arg\max_{\theta}[\sum_{i}\log p(x^{i}|\theta)+\log p(\theta)],
+\end{align*}
+
+\end_inset
+
+again 
+\begin_inset Formula $i$
+\end_inset
+
+ is the label of sample unit.
+\end_layout
+
+\begin_layout Standard
+We can see MAP is just a modified MLE with additional term from prior.
+\end_layout
+
+\begin_layout Subsection
+Expectation–Maximization
+\end_layout
+
+\begin_layout Standard
+The goal is to maximize the likelihood function:
+\begin_inset Formula 
+\begin{align*}
+p(\boldsymbol{X}|\theta)= & \sum_{\boldsymbol{Z}}p(\boldsymbol{X},\boldsymbol{Z}|\theta)
+\end{align*}
+
+\end_inset
+
+which is expressed as the summation over the latent variables.
+ The summation usually causes some difficulty, so we assume 
+\begin_inset Formula $p(\boldsymbol{X},\boldsymbol{Z}|\theta)$
+\end_inset
+
+ is easy to maximize while 
+\begin_inset Formula $p(\boldsymbol{X}|\theta)$
+\end_inset
+
+ is not.
+ We can rewrite it in another form as:
+\begin_inset Formula 
+\begin{align*}
+\log p(\boldsymbol{X}|\theta)=\sum_{\boldsymbol{Z}}q(\boldsymbol{Z})\log\frac{p(\boldsymbol{X},\boldsymbol{Z}|\theta)}{q(\boldsymbol{Z})}+\sum_{\boldsymbol{Z}}q(\boldsymbol{Z})\log\frac{q(\boldsymbol{Z})}{p(\boldsymbol{Z}|\boldsymbol{X},\theta)}
+\end{align*}
+
+\end_inset
+
+The second term is the Kullback-Leibler divergence.
+ For any fixed 
+\begin_inset Formula $q(\boldsymbol{Z})$
+\end_inset
+
+, we can variate 
+\begin_inset Formula $p(\boldsymbol{Z}|\boldsymbol{X},\theta)$
+\end_inset
+
+ such that the minimal value is given by 
+\begin_inset Formula $p(\boldsymbol{Z}|\boldsymbol{X},\theta)=q(\boldsymbol{Z})$
+\end_inset
+
+ and Kullback-Leibler divergence becomes zero.
+ Thus for any 
+\begin_inset Formula $q(\boldsymbol{Z})$
+\end_inset
+
+ and 
+\begin_inset Formula $p(\boldsymbol{Z}|\boldsymbol{X},\theta)$
+\end_inset
+
+, 
+\begin_inset Formula $KL(q||p)\geq0$
+\end_inset
+
+ with zero given when they are equal.
+\end_layout
+
+\begin_layout Standard
+Then the first term gives a lower bond for the expression on the left hand
+ side.
+ In the next, we denote the first term as 
+\begin_inset Formula $\mathcal{L}(q,\theta)$
+\end_inset
+
+, which is a functional on the distribution 
+\begin_inset Formula $q$
+\end_inset
+
+ and a function on the parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+.
+ * 
+\end_layout
+
+\begin_layout Itemize
+In the E step, for fixed parameter 
+\begin_inset Formula $\theta_{old}$
+\end_inset
+
+, we maximize the first term, which is equivalent to minimize the second
+ term and the result is 
+\begin_inset Formula $q(\boldsymbol{Z})=p(\boldsymbol{Z}|\boldsymbol{X},\theta_{old})$
+\end_inset
+
+.
+ Then the first term becomes 
+\begin_inset Formula $\mathcal{L}(p(\boldsymbol{Z}|\boldsymbol{X},\theta),\theta_{old})=\sum_{\boldsymbol{Z}}p(\boldsymbol{Z}|\boldsymbol{X},\theta_{old})\log\frac{p(\boldsymbol{X},\boldsymbol{Z}|\theta_{old})}{p(\boldsymbol{Z}|\boldsymbol{X},\theta_{old})}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+In the M step, for fixed PDF 
+\begin_inset Formula $q$
+\end_inset
+
+, we maximize 
+\begin_inset Formula $\mathcal{L}$
+\end_inset
+
+ by updating 
+\begin_inset Formula $\theta$
+\end_inset
+
+ with 
+\begin_inset Formula $q$
+\end_inset
+
+ fixed.
+ This is assumed to be viable.
+\end_layout
+
+\begin_layout Standard
+The EM method is used to deal with models with latent variables where the
+ observed data satifies the marginal distribution with the latent variable
+ integrated.
+ Or more generally, you have a complete model but are only interested in
+ the part of the variables in that model.
+\end_layout
+
+\begin_layout Subsection
+Cross Entropy
+\end_layout
+
+\begin_layout Standard
+One way is to use the cross entropy: 
+\begin_inset Formula 
+\begin{align*}
+ & -\int dXp(X)\int dYp(Y|X)log_{2}\hat{p}(Y|X)
+\end{align*}
+
+\end_inset
+
+It can be seen that the cross entropy is minimized when 
+\begin_inset Formula $\hat{p}(Y|X)=p(Y|X)$
+\end_inset
+
+ (Just add a Lagrangian multiplier 
+\begin_inset Formula $\int dY\hat{p}(Y|X)-1$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section
+Common distribution functions
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Probability mass function
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Explanation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Binomial Distribution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left(\begin{array}{c}
+k\\
+n
+\end{array}\right)p^{k}(1-p)^{n-k}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Toss coin n times with k times top side
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Multinomial Distribution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{n!}{x_{1}!\cdots x_{k}!}p_{1}^{x_{1}}\times\cdots p_{k}^{x_{k}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Choose n times but each time has k outcomes
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Uniform Distribution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{b-a}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x\in[a,b]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Beta Distribution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $x\in[0,1]$
+\end_inset
+
+ and 
+\begin_inset Formula $B(\alpha,\beta)=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dirichlet distribution
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\frac{1}{B(\boldsymbol{\alpha})}\prod_{i}x_{i}^{\alpha_{i}-1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sum_{i}x_{i}=1$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{i}\geq0$
+\end_inset
+
+, 
+\begin_inset Formula $B(\alpha)=\frac{\prod_{i}\Gamma(\alpha_{i})}{\Gamma(\sum_{i}\alpha_{i})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Hypothesis Testing
+\end_layout
+
+\begin_layout Standard
+A statistical hypothesis (also called confirmatory data analysis) is a hypothesi
+s that is testable on the basis of observing a process that is modeled via
+ a set of random variables.
+ Testable means predictions about the realization of the statistical model
+ are given by this hypothesis.
+ To support the hypothesis, its null hypothesis is tested.
+ Null hypothesis is the converse of hypothesis.
+ A hypothesis can be interpreted as a specific model of all the possible
+ models for certain scenario and the null hypothesis is the rest of the
+ models in the total model space.
+ One is true indicates the other is false and vice versa.
+ 
+\end_layout
+
+\begin_layout Standard
+There is a natural distinction between verifying a hypothesis and falsifying
+ a hypothesis.
+ It's always easier to falsify a hypothesis since one counter example is
+ enough while in principle all possible cases need to be tested to verify
+ the hypothesis.
+ So truth is only a small island in the endless ocean of lies.
+ 
+\end_layout
+
+\begin_layout Standard
+A sample is used to falsify the null-hypothesis.
+ The approach is to define a rejection region of possible realizations of
+ a sample in the sample space such that when we observe a sample that falls
+ into the rejection region, the null-hypothesis is rejected.
+ This rejection region is determined by the level of the test.
+ The level of the test is the probability (usually denoted by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+) that the type I erros is made.
+ A type I error happens when the null-hypothesis is rejected while it is
+ true.
+ Since the testing is expected to make the type I error with a probability
+ lower than the level of the test, all the possbile sample observations
+ in the rejections region has a probability lower than the level of the
+ test on condition that the null-hypothesis is true.
+ By finding all possible realizations, the rejection region is determined.
+\end_layout
+
+\begin_layout Standard
+There is also type II error which is when the alternative hypothesis is
+ true, the probability (denoted by 
+\begin_inset Formula $\beta$
+\end_inset
+
+) that the null hypothesis is accepted.
+ At first glance, 
+\begin_inset Formula $\beta=1-\alpha$
+\end_inset
+
+.
+ It is true that for a fixed model by varying rejection region 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ changes in different directions.
+ But 
+\begin_inset Formula $\alpha!=1-\beta$
+\end_inset
+
+ since they are probability under different conditions.
+ Alternative hypothesis is true means null hypothesis is false and 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is calculated under the assumption null hypothesis is true.
+ 
+\end_layout
+
+\begin_layout Chapter
+Bayesian
+\end_layout
+
+\begin_layout Standard
+Here we introduce the methods of sampling Bayesian posterior.
+ Given a posterior density 
+\begin_inset Formula $p(\theta|y)$
+\end_inset
+
+, we want to generate a sample 
+\begin_inset Formula $\{\theta^{i}\}$
+\end_inset
+
+ from the distribution.
+ 
+\end_layout
+
+\begin_layout Section
+Sampling
+\end_layout
+
+\begin_layout Subsection
+Metropolis Algorithm
+\end_layout
+
+\begin_layout Standard
+The Metropolis algorithm construct the Markov Chain according to the following
+ step: 
+\end_layout
+
+\begin_layout Enumerate
+Given the previous realization 
+\begin_inset Formula $\theta^{k}$
+\end_inset
+
+, generates a new 
+\begin_inset Formula $\theta^{*}$
+\end_inset
+
+ according to a candidate generating distribution: 
+\begin_inset Formula $h(\theta^{*}|\theta^{k})$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta^{*}$
+\end_inset
+
+ is accepted or rejected according to the probability 
+\begin_inset Formula $\alpha(\theta^{k},\theta^{*})=\min\{1,\frac{q(\theta^{*})h(\theta^{k}|\theta^{*})}{q(\theta^{k})h(\theta^{*}|\theta^{k})}\}$
+\end_inset
+
+.
+ Basicly, 
+\begin_inset Formula 
+\begin{align*}
+ & \theta^{k+1}=\begin{cases}
+\theta^{*}\ with\ probability\ \ \alpha,\\
+\theta^{k}\ with\ probability\ \ 1-\alpha.
+\end{cases}
+\end{align*}
+
+\end_inset
+
+Next, we prove that 
+\begin_inset Formula $q(\theta)$
+\end_inset
+
+ is the stationary distribution generated this way.
+\begin_inset Formula 
+\begin{align*}
+p(\theta^{k+1})= & \int d\theta^{k}q(\theta^{k+1}|\theta^{k})q(\theta^{k})\\
+= & \int d\theta^{k}\int d\theta^{*}[\delta(\theta^{k+1}-\theta^{*})\alpha(\theta^{k},\theta^{*})h(\theta^{*}|\theta^{k})q(\theta^{k})\\
+ & +\delta(\theta^{k+1}-\theta^{k})(1-\alpha(\theta^{k},\theta^{*}))h(\theta^{*}|\theta^{k})q(\theta^{k})]\\
+= & \int d\theta^{k}\alpha(\theta^{k},\theta^{k+1})h(\theta^{k+1}|\theta^{k})q(\theta^{k})\\
+ & +\int d\theta^{*}(1-\alpha(\theta^{k+1},\theta^{*}))h(\theta^{*}|\theta^{k+1})q(\theta^{k+1})]\\
+= & \int d\theta^{*}[\alpha(\theta^{*},\theta^{k+1})h(\theta^{k+1}|\theta^{*})q(\theta^{*})+(1-\alpha(\theta^{k+1},\theta^{*}))h(\theta^{*}|\theta^{k+1})q(\theta^{k+1})]\\
+= & [\int_{\alpha(\theta^{*},\theta^{k+1})\leq1}+\int_{\alpha(\theta^{*},\theta^{k+1})=1}][\alpha(\theta^{*},\theta^{k+1})h(\theta^{k+1}|\theta^{*})q(\theta^{*})+(1-\alpha(\theta^{k+1},\theta^{*}))h(\theta^{*}|\theta^{k+1})q(\theta^{k+1})]\\
+= & \int_{\alpha(\theta^{*},\theta^{k+1})\leq1}\frac{q(\theta^{k+1})h(\theta^{*}|\theta^{k+1})}{q(\theta^{*})h(\theta^{k+1}|\theta^{*})}h(\theta^{k+1}|\theta^{*})q(\theta^{*})\\
+ & +\int_{\alpha(\theta^{*},\theta^{k+1})=1}[h(\theta^{k+1}|\theta^{*})q(\theta^{*})+(1-\frac{q(\theta^{*})h(\theta^{k+1}|\theta^{*})}{q(\theta^{k+1})h(\theta^{*}|\theta^{k+1})})h(\theta^{*}|\theta^{k+1})q(\theta^{k+1})]\\
+= & \int_{\alpha(\theta^{*},\theta^{k+1})\leq1}q(\theta^{k+1})h(\theta^{*}|\theta^{k+1})\\
+ & +\int_{\alpha(\theta^{*},\theta^{k+1})=1}[h(\theta^{k+1}|\theta^{*})q(\theta^{*})+h(\theta^{*}|\theta^{k+1})q(\theta^{k+1})-q(\theta^{*})h(\theta^{k+1}|\theta^{*})]\\
+= & \int_{\alpha(\theta^{*},\theta^{k+1})\leq1}q(\theta^{k+1})h(\theta^{*}|\theta^{k+1})+\int_{\alpha(\theta^{*},\theta^{k+1})=1}[h(\theta^{*}|\theta^{k+1})q(\theta^{k+1})]\\
+= & \int_{\alpha}d\theta^{*}q(\theta^{k+1})h(\theta^{*}|\theta^{k+1})\\
+= & q(\theta^{k+1})
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Supervised Learninng Algorithms
+\end_layout
+
+\begin_layout Section
+Picture
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $X_{1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $X_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Y_{1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Y_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Predictor1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Predictor2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Outcome1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Outcome2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The goal of supervised learning is to find a mapping of 
+\begin_inset Formula $f:X\rightarrow t$
+\end_inset
+
+, where 
+\begin_inset Formula $t$
+\end_inset
+
+ is the target possibly depending on 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ If the family of mappings are determined by a parameter 
+\begin_inset Formula $w$
+\end_inset
+
+, 
+\begin_inset Formula $f$
+\end_inset
+
+ is determined by the learning process which uses the sample data to find
+ the best possible 
+\begin_inset Formula $w$
+\end_inset
+
+ such that the corresponding mapping provides a good performance on the
+ population evaluated by a metric function.
+ The learning process is usually a optimization of some loss function 
+\begin_inset Formula $l(t,Y)$
+\end_inset
+
+ explicitly depending on 
+\begin_inset Formula $t$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ The relation between loss function and metric is that they are in general
+ different ....
+\end_layout
+
+\begin_layout Standard
+Consider a supervised learning scenario, the independent variables (predictor)
+ are 
+\begin_inset Formula $\{X_{i}\}$
+\end_inset
+
+ and dependent variables (outcome) are 
+\begin_inset Formula $\{Y_{i}\}$
+\end_inset
+
+ , the goal is to find how the outcome is determined by the predictor or
+ more rigorously what is the conditional probability 
+\begin_inset Formula $p(\{Y_{i}\}|\{X_{j}\})$
+\end_inset
+
+.Regardless the machine learning algorithm, the final product is always a
+ box with input 
+\begin_inset Formula $X$
+\end_inset
+
+ and output 
+\begin_inset Formula $Y$
+\end_inset
+
+, which is a simulation 
+\begin_inset Formula $\hat{p}(\{Y_{i}\}|\{X_{j}\})$
+\end_inset
+
+ of the target conditonl probability 
+\begin_inset Formula $p(Y|X)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In a simpler deterministic scenario 
+\begin_inset Formula $\hat{p}(\{Y_{i}\}|\{X_{j}\})=\delta(Y_{i}-f_{i}(\{X_{j}\}))$
+\end_inset
+
+, which means 
+\begin_inset Formula $\{Y_{i}\}$
+\end_inset
+
+ are deterministic with repsect to 
+\begin_inset Formula $\{X_{i}\}$
+\end_inset
+
+.
+ Thus the high dimensional space of 
+\begin_inset Formula $X$
+\end_inset
+
+ is divided into different subspaces according to the value of 
+\begin_inset Formula $Y_{i}=f_{i}(\{X_{j}\})$
+\end_inset
+
+.
+ Then the goal is instead to find the function 
+\begin_inset Formula $f(X)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+We can check the information gain through this process.
+ In the future task, a data is given with only predictor.
+ Without the machine learning algorithm, the best we can do is to guess
+ the class of this data by the distribution of 
+\begin_inset Formula $Y$
+\end_inset
+
+ in the population, so the entropy is simply:
+\begin_inset Formula 
+\begin{align*}
+H(Y)= & -\int dyp(y)\log_{2}p(y).
+\end{align*}
+
+\end_inset
+
+However, with the machine learning algorithm, we can input 
+\begin_inset Formula $X$
+\end_inset
+
+ and achieve a improved probability of 
+\begin_inset Formula $Y$
+\end_inset
+
+ which is just described by 
+\begin_inset Formula $p(Y|X)$
+\end_inset
+
+, so the entropy becomes:
+\begin_inset Formula 
+\begin{align*}
+H(Y|X)= & -\int dxp(x)\int dyp(y|x)\log_{2}p(y|x).
+\end{align*}
+
+\end_inset
+
+So we can define the information contained in the sample as:
+\begin_inset Formula 
+\begin{align*}
+\tilde{H}(Y)-\tilde{H}(Y|X),
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\tilde{H}$
+\end_inset
+
+ means it is sample related distribution property.
+ 
+\end_layout
+
+\begin_layout Standard
+In the case of Bayes, we have the information gain as:
+\begin_inset Formula 
+\begin{align*}
+H(Y|X)= & -\int dx\int dyp(y|x)\log_{2}p(y|x)\\
+= & -\int dx\int dyp(x|y)p(y)[\log_{2}p(x|y)+\log_{2}p(y)-\log_{2}p(x)]
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Models
+\end_layout
+
+\begin_layout Subsection
+Bayes
+\end_layout
+
+\begin_layout Standard
+The formula for Bayes rule in a sample is the following:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+p(\{Y\}|\{X\})= & \frac{p(\{X\}|\{Y\})p(\{Y\})}{p(\{X\})}.
+\end{align}
+
+\end_inset
+
+Because the unit in a sample is assumed to be iid, given the realziation
+ of the sample 
+\begin_inset Formula $\{x,y\}$
+\end_inset
+
+, the conditional probability is 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+p(\{y\}|\{x\})\propto & \prod_{i}p(x^{i}|y^{i})p(y^{i}).
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then assumptions are made about the function form of likelihood 
+\begin_inset Formula $p(X|Y)$
+\end_inset
+
+ with some parameter.
+ The problem is then reduced to find the maximization of this conditionl
+ probability with respect to the parameter.
+ Here are two worth noticing points: (1).
+ The maximization is the conditional probability not the 'totoal' probability
+ of observing the whole sample 
+\begin_inset Formula $p(\{X,Y\})$
+\end_inset
+
+.
+ The reason is that we only care about the relation between predictor and
+ outcome excluding the distribution of feature itself.
+ (2).
+ Assumption is made with respect to the likelihood function instead of the
+ target conditonal function.
+ This is more of a generative method than a discriminative method.
+ So here is the natural question when to use which?
+\end_layout
+
+\begin_layout Standard
+The parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ in the model assumption can be achieved by using MAP:
+\begin_inset Formula 
+\begin{align*}
+\theta= & \arg\max_{\theta}\log p(\{y\}|\{x\})\\
+= & \arg\max_{\theta}\log\prod_{i}p(x^{i}|y^{i})p(y^{i})\\
+= & \arg\max_{\theta}\sum_{i}[\log p(x^{i}|y^{i})+\log p(y^{i})],
+\end{align*}
+
+\end_inset
+
+where again 
+\begin_inset Formula $i$
+\end_inset
+
+ is the label for units in the sample.
+ 
+\end_layout
+
+\begin_layout Standard
+The detailed maximization process depends on which quantity is treated as
+ the parameter.
+ For example, the probability 
+\begin_inset Formula $p(y)$
+\end_inset
+
+ itself can be treated as parameter and is assumed to be independent from
+ the parameter in the likelihood function.
+ Then under the constraint that 
+\begin_inset Formula $\sum_{j}p(y_{j})=1$
+\end_inset
+
+, we have 
+\begin_inset Formula 
+\begin{align*}
+p(y)= & \arg\max[\sum_{i}\log p(y^{i})+\mu\sum_{j}p(y_{j})]\\
+= & \arg\max[\sum_{j}\frac{N_{y_{j}}}{N_{y}}\log p(y_{j})+\mu\sum_{j}p(y_{j})],
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $N_{y_{j}}$
+\end_inset
+
+ is the occurence of class 
+\begin_inset Formula $y_{j}$
+\end_inset
+
+ in the sample and 
+\begin_inset Formula $N_{y}$
+\end_inset
+
+ is the size of the sample.
+ Then the maximization gives that 
+\begin_inset Formula $p(y_{j})=\frac{N_{y_{j}}}{N_{y}}$
+\end_inset
+
+.
+ In this process 
+\begin_inset Formula $N_{y_{j}}$
+\end_inset
+
+is non-zero.
+ 
+\end_layout
+
+\begin_layout Standard
+In the following dicussion, we assume 
+\begin_inset Formula $p(Y)$
+\end_inset
+
+ is given by the occurence frequency in the sample and focus on the likelihood
+ function.
+ Then in this sense MAP becomes MLE and the second term in MAP will be omitted
+ for simplicity:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\theta= & \arg\max_{\theta}\sum_{i}\log p(x^{i}|y^{i}).\label{eq:MAP}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Gaussian Bayes
+\end_layout
+
+\begin_layout Standard
+Assumption about the likelihood:
+\begin_inset Formula 
+\begin{align*}
+p(X|Y)= & \frac{1}{\sqrt{(2\pi)^{d}|\Sigma_{Y}|}}\exp(-\frac{1}{2}(X-\mu_{Y})_{i}\Sigma_{Y}^{-1ij}(X-\mu_{Y})_{j}),
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mu,\Sigma$
+\end_inset
+
+ is 
+\begin_inset Formula $Y$
+\end_inset
+
+ dependent parameters and 
+\begin_inset Formula $i$
+\end_inset
+
+ is the label for different features.
+ This assumptions assumes for each class of 
+\begin_inset Formula $Y$
+\end_inset
+
+ there is a Gaussinal dietribution in the high dimensional space of 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Sigma$
+\end_inset
+
+ is the covariance matrix with element 
+\begin_inset Formula $\Sigma_{ij}$
+\end_inset
+
+ the covariance between feature 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ given a particular class.
+ So the total number of parameters is 
+\begin_inset Formula $N\times(\frac{M(M-1)}{2}+M)$
+\end_inset
+
+, with 
+\begin_inset Formula $N$
+\end_inset
+
+ the number of class and 
+\begin_inset Formula $M$
+\end_inset
+
+ the number of feature
+\end_layout
+
+\begin_layout Standard
+Substituting into Eq.
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:MAP"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), assume we have an explicit expression for the parameters as:
+\begin_inset Formula 
+\begin{align*}
+\theta= & \arg\max_{\theta}\sum_{i}[-\frac{1}{2}(x^{i}-\mu_{y^{i}})\Sigma_{y^{i}}^{-1}(x^{i}-\mu_{y^{i}})-\frac{1}{2}\log(2\pi)^{d}|\Sigma_{y^{i}}|]\\
+= & \arg\max_{\theta}\sum_{y_{j}}[\sum_{i\in y_{j}}-\frac{1}{2}(x^{i}-\mu_{y_{j}})\Sigma_{y_{j}}^{-1}(x^{i}-\mu_{y_{j}})-\frac{1}{2}N_{y_{j}}\log|\Sigma_{y_{j}}|].
+\end{align*}
+
+\end_inset
+
+So for each class the maximization gives
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+0= & \sum_{x}[\Sigma^{-1ij}(x-\mu)_{j}+(x-\mu)_{j}\Sigma^{-1ji}],\\
+0= & \sum_{x}-\frac{1}{2}(x-\mu)_{i}(x-\mu)_{j}+\frac{1}{2}N\Sigma_{mn}\frac{\partial}{\partial\Sigma^{-1ij}}\Sigma^{-1nm}.
+\end{align*}
+
+\end_inset
+
+Noticing that the covariance matrix is symmetric, the above equations give
+ the expected result:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mu_{i}= & \bar{X}_{i},\\
+\Sigma_{ij}= & cov(X_{i},X_{j}),
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\bar{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $cov(X_{i},X_{j})$
+\end_inset
+
+ is the sample mean and covariance of the features.
+ So there is no need to apply algorithms e.g.
+ SGD to calculate the parameter in MAP.
+ In this case, there is a direct formula.
+\end_layout
+
+\begin_layout Standard
+Given 
+\begin_inset Formula $X_{test}$
+\end_inset
+
+, we need to find the kernal of the distribution function:
+\begin_inset Formula 
+\begin{align*}
+p(X_{test}|Y)p(Y)= & \frac{1}{\sqrt{|\Sigma_{Y}|}}\exp(-\frac{1}{2}(X_{test}-\mu_{Y})_{i}\Sigma_{Y}^{-1ij}(X_{test}-\mu_{Y})_{j})p(Y).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Naive Bayes
+\end_layout
+
+\begin_layout Standard
+Naive Bayes is based on the conditionnal independent assumption between
+ features such that
+\begin_inset Formula 
+\begin{align*}
+p(x|y)= & \prod_{j}p(x_{j}|y),
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $j$
+\end_inset
+
+ is the label of feature.
+ So MAP can be further written as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\theta= & \arg\max_{\theta}\sum_{i}\sum_{j}\log p(x_{j}^{i}|y^{i}).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Gaussian 
+\end_layout
+
+\begin_layout Standard
+It assumes in the one-dimensional space of each feature there is gaussian
+ distribution 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+p(x_{j}|y)= & \frac{1}{\sqrt{2\pi\sigma_{y}}}\exp(-\frac{(x_{j}-\mu_{y})^{2}}{2\sigma_{y}^{2}}).
+\end{align*}
+
+\end_inset
+
+As expected the parameter is just given by the sample mean and sample standard
+ deviation.
+\end_layout
+
+\begin_layout Subsubsection*
+Multinomial
+\end_layout
+
+\begin_layout Standard
+It applies to the case the feature is treated as discrete and the multinomial
+ probability distribution itself is treated as parameter.
+ Assuming each feature 
+\begin_inset Formula $X_{j}$
+\end_inset
+
+ has several possible values with probability
+\end_layout
+
+\begin_layout Subsubsection*
+\begin_inset Formula 
+\begin{align*}
+ & (\theta_{y0},\theta_{y1},...\theta_{yn}).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As expected, the probability is just given by the sample distribution:
+\begin_inset Formula 
+\begin{align*}
+\theta_{yi}= & \frac{N_{yi}}{N_{y}}.
+\end{align*}
+
+\end_inset
+
+However, it is entirely possible that this feature never takes a certain
+ value in this class but appears in another class.
+ To avoid zero (why?), smoothing is used 
+\begin_inset Formula 
+\begin{align*}
+\theta_{yi}= & \frac{N_{yi}+\alpha}{N_{y}+\alpha n},
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $n$
+\end_inset
+
+ is the sample size.
+ Setting is 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+ is called Laplace smoothing, while 
+\begin_inset Formula $\alpha<1$
+\end_inset
+
+ is called Lidstone smoothing.
+ 
+\end_layout
+
+\begin_layout Subsection
+MCMC
+\end_layout
+
+\begin_layout Subsubsection*
+Sampling
+\end_layout
+
+\begin_layout Standard
+When we say we sample from a distribution, we mean that we choose some discrete
+ points, with likelihood defined by the distribution’s probability density
+ function.
+ A single sample p drawn from a distribution 
+\begin_inset Formula $p(x)$
+\end_inset
+
+ is denoted 
+\begin_inset Formula $p\sim p(x)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Logistic regression
+\end_layout
+
+\begin_layout Standard
+Ridge Regression.
+\end_layout
+
+\begin_layout Subsection
+Support Vector Machine
+\end_layout
+
+\begin_layout Subsubsection*
+Distance beween a point and hyperplane
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset Formula $N$
+\end_inset
+
+ dimensional space, the minimal distance from a point 
+\begin_inset Formula $\{y_{i}\}$
+\end_inset
+
+ to the 
+\begin_inset Formula $N-1$
+\end_inset
+
+ hyperplane 
+\begin_inset Formula $w_{i}x_{i}+b=0$
+\end_inset
+
+ can be achieved by the minimal of the following Lagrange function:
+\begin_inset Formula 
+\begin{align*}
+L= & [(x_{i}-y_{i})(x_{i}-y_{i})+\mu(w_{i}x_{i}+b)],
+\end{align*}
+
+\end_inset
+
+which is given by 
+\begin_inset Formula 
+\begin{align*}
+\frac{\partial L}{\partial x_{j}}= & [2(x_{j}-y_{j})+\mu w_{j}]=0.
+\end{align*}
+
+\end_inset
+
+Substituting 
+\begin_inset Formula $x_{i}=y_{i}-\frac{1}{2}\mu w_{i}$
+\end_inset
+
+ back to the hyperplane equation, we have
+\begin_inset Formula 
+\begin{align*}
+0= & w_{i}(y_{i}-\frac{1}{2}\mu w_{i})+b,\\
+\mu= & \frac{2(b+w_{i}y_{i})}{|w|^{2}}.
+\end{align*}
+
+\end_inset
+
+Then the minimal distance between 
+\begin_inset Formula $y$
+\end_inset
+
+ and hyperplane reads:
+\begin_inset Formula 
+\begin{align*}
+d=\frac{1}{2}|\mu||w|= & \frac{|b+w_{i}y_{i}|}{|w|}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Objective function
+\end_layout
+
+\begin_layout Standard
+Suppose we have a sample with predictors 
+\begin_inset Formula $\{X^{i}\}$
+\end_inset
+
+ and outcome 
+\begin_inset Formula $\{Y^{i}\}$
+\end_inset
+
+.
+ Suppose the outcome takes two values 
+\begin_inset Formula $\pm1$
+\end_inset
+
+, given feature 
+\begin_inset Formula $x$
+\end_inset
+
+, the outcome is predicted according to
+\begin_inset Formula 
+\begin{align*}
+y= & sign(b+w^{T}x)1.
+\end{align*}
+
+\end_inset
+
+If the outcome is correctly predicted, the distance can also be written
+ as:
+\begin_inset Formula 
+\begin{align*}
+d= & \frac{y(b+w^{T}x)}{|w|},
+\end{align*}
+
+\end_inset
+
+with the normal direction of the hyperplane pointing to the 
+\begin_inset Formula $Y=+1$
+\end_inset
+
+ class.
+ 
+\end_layout
+
+\begin_layout Standard
+The goal of SVM is to maximize 
+\begin_inset Formula $d_{min}$
+\end_inset
+
+ by varying 
+\begin_inset Formula $\{w,b\}$
+\end_inset
+
+.
+ The smallest distance among all the distances given by the observations
+ reads:
+\begin_inset Formula 
+\begin{align*}
+d_{min}= & \arg\min_{i}\{d^{i}\},
+\end{align*}
+
+\end_inset
+
+with 
+\begin_inset Formula $d^{i}=\frac{y^{i}(b+w^{T}x^{i})}{|w|}$
+\end_inset
+
+.
+ We denote the observation corresponding to 
+\begin_inset Formula $d_{min}$
+\end_inset
+
+ as 
+\begin_inset Formula $x_{min}$
+\end_inset
+
+, then an alternative way to formulate this maximazation process is:
+\begin_inset Formula 
+\begin{align*}
+\arg\max_{\{w,b\}} & \frac{y_{min}(b+w^{T}x_{min})}{|w|},\\
+s.t. & \frac{y^{i}(b+w^{T}x^{i})}{|w|}-\frac{y_{min}(b+w^{T}x_{min})}{|w|}\geqslant0.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the data point corresponds to the minimal distance is unchanged during
+ the variation process, we can utilize the scale invariance of 
+\begin_inset Formula $\{w,b\}$
+\end_inset
+
+ in representing the same hyperplane to make 
+\begin_inset Formula $y_{min}(b+w^{T}x_{min})=1$
+\end_inset
+
+.
+ Then the problem can be reexpressed as:
+\begin_inset Formula 
+\begin{align*}
+\arg\min_{\{w,b\}} & |w|^{2},\\
+s.t. & y^{i}(b+w^{T}x^{i})-1\geqslant0\\
+ & y_{min}(b+w^{T}x_{min})=1.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The problem involves inequality constraints and can be solved through the
+ Karush–Kuhn–Tucker conditions, which will be introduced in the following.
+\end_layout
+
+\begin_layout Subsubsection*
+Lagrange multiplier
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename LagrangeMultipliers2D.svg.png
+	scale 10
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Lagrange multiplier method is to solve the following problem:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+maximize: & f(x)\\
+subject\ to: & g(x)=0.
+\end{align*}
+
+\end_inset
+
+In the two-dimensional example shown by the above picture, we need to find
+ the maximum of 
+\begin_inset Formula $f(x,y)$
+\end_inset
+
+ on the red line of condition 
+\begin_inset Formula $g(x,y)=0$
+\end_inset
+
+.
+ A necessary condition is that the derivative of 
+\begin_inset Formula $f(x,y)$
+\end_inset
+
+ along the tangent direction of the red line is zero.
+ This condition happens in two cases: (1) 
+\begin_inset Formula $\nabla f=0$
+\end_inset
+
+ in regardless of 
+\begin_inset Formula $g$
+\end_inset
+
+, (2) 
+\begin_inset Formula $\nabla f$
+\end_inset
+
+ parallel to 
+\begin_inset Formula $\nabla g$
+\end_inset
+
+.
+ The two cases can be denoted by a single expression:
+\begin_inset Formula 
+\begin{align*}
+\nabla f= & \lambda\nabla g,
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is called the Lagrange multiplier and equals to zero for the first case.
+ Of course the above equation has to be combined with the feasibility condtion
+\begin_inset Formula 
+\begin{align*}
+g(x)= & 0.
+\end{align*}
+
+\end_inset
+
+Then the two equations can be further combined as the stationary points
+ condition of the Lagrangian 
+\begin_inset Formula $\mathcal{L}(x,\lambda)=f(x)+\lambda g(x)$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\nabla_{x,\lambda}\mathcal{L}= & 0,
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathcal{L}(x,\lambda)$
+\end_inset
+
+ is a function depending on extra dimensions denoted by 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection*
+Karush–Kuhn–Tucker conditions
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Inequality_constraint_diagram.svg.png
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+KKT conditions are generalization of the Lagrange condition to include inequalit
+y constraints:
+\begin_inset Formula 
+\begin{align*}
+maximize: & f(x),\\
+subject\ to: & g(x)\leqslant0\\
+ & h(x)=0.
+\end{align*}
+
+\end_inset
+
+The idea is based on a simple observation that if the maximum happens on
+ the boundary of 
+\begin_inset Formula $g(x)=0$
+\end_inset
+
+, the problem is reduced to the Lagrange problem with additional constraints,
+ else (happens in the domain 
+\begin_inset Formula $g(x)<0$
+\end_inset
+
+) the inequality condition can actually be discarded and the problem is
+ reduced to the Lagrange case only with constraint 
+\begin_inset Formula $h$
+\end_inset
+
+.
+ Following the Lagrange case, we define the Lagrangian as
+\begin_inset Formula 
+\begin{align*}
+\mathcal{L}= & f(x)+\mu g(x)+\lambda h(x),
+\end{align*}
+
+\end_inset
+
+the two cases can be denoted by the complementary slackness condition:
+\begin_inset Formula 
+\begin{align*}
+\mu g(x)= & 0.
+\end{align*}
+
+\end_inset
+
+Of course the primal feasibility condion:
+\begin_inset Formula 
+\begin{align*}
+g(x)\leqslant & 0,\\
+h(x)= & 0,
+\end{align*}
+
+\end_inset
+
+and stationary condition:
+\begin_inset Formula 
+\begin{align*}
+\nabla_{x,\lambda}\mathcal{L}= & 0,
+\end{align*}
+
+\end_inset
+
+should be satisfied.
+\end_layout
+
+\begin_layout Subsubsection*
+Example
+\end_layout
+
+\begin_layout Standard
+To understand the reasoning behind the minimization process in SVM, we can
+ consider a scenario where the feature space is two-dimensional and there
+ are two classes 
+\begin_inset Formula $y=\pm1$
+\end_inset
+
+.
+ Suppose the sample only has two units: 
+\begin_inset Formula $x^{1}=(1,0),y^{1}=1$
+\end_inset
+
+ and 
+\begin_inset Formula $x^{2}=(-1,0),y^{2}=-1$
+\end_inset
+
+.
+ There are infinite number of lines that can seperate these two points,
+ however, we expect the minimization gives the one that is the 
+\begin_inset Formula $y$
+\end_inset
+
+ axis.
+ 
+\end_layout
+
+\begin_layout Standard
+According to the formula, we are minimizing the following Lagrangian:
+\begin_inset Formula 
+\begin{align*}
+L= & \frac{1}{2}(w_{1}^{2}+w_{2}^{2})+\mu_{1}[(w_{1}+b)-1]+\mu_{2}[-(-w_{1}+b)-1],
+\end{align*}
+
+\end_inset
+
+which gives
+\begin_inset Formula 
+\begin{align*}
+w_{1}= & -\mu_{1}-\mu_{2},\\
+w_{2}= & 0,\\
+b(\mu_{1}+\mu_{2})= & 0.
+\end{align*}
+
+\end_inset
+
+The solution is 
+\begin_inset Formula $(w_{1}\neq0,b=0)$
+\end_inset
+
+ or 
+\begin_inset Formula $(w_{1}=0,b\neq0)$
+\end_inset
+
+ or 
+\begin_inset Formula $(w_{1}=b=0)$
+\end_inset
+
+.
+ However, the complementary slackness condition requires that:
+\begin_inset Formula 
+\begin{align*}
+0= & \mu_{1}[w_{1}+b-1],\\
+0= & \mu_{2}[w_{1}-b-1],
+\end{align*}
+
+\end_inset
+
+which can be further written as:
+\begin_inset Formula 
+\begin{align*}
+0= & -\mu_{1}^{2}+\mu_{2}^{2}+2b,\\
+0= & w_{1}^{2}+b(\mu_{1}-\mu_{2})-w_{1}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Lagrangian duality 
+\end_layout
+
+\begin_layout Standard
+Given the orginal problem:
+\begin_inset Formula 
+\begin{align*}
+minimize: & f(x),\\
+subject\ to: & g(x)\leqslant0\\
+ & h(x)=0,
+\end{align*}
+
+\end_inset
+
+with the domain 
+\begin_inset Formula $D$
+\end_inset
+
+ having non-empty interior, the Lagrangian function 
+\begin_inset Formula $\Lambda:R^{n}\times R^{m}\times R^{p}\rightarrow R$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\begin{align*}
+\Lambda(x,\mu,\lambda)= & f(x)+\mu g(x)+\lambda h(x).
+\end{align*}
+
+\end_inset
+
+The Lagrange dual function 
+\begin_inset Formula $g:R^{m}\times R^{n}\rightarrow R$
+\end_inset
+
+ is defined as
+\begin_inset Formula 
+\begin{align*}
+\Psi(\mu,\lambda)=\inf_{x\in D} & \Lambda(x,\mu,\lambda).
+\end{align*}
+
+\end_inset
+
+There are two properties of 
+\begin_inset Formula $\Psi(\mu,\lambda)$
+\end_inset
+
+ worth noticing:
+\end_layout
+
+\begin_layout Standard
+(1).
+ 
+\begin_inset Formula $\Psi(\mu,\lambda)$
+\end_inset
+
+ is a concave function.
+ To prove this, we see that for 
+\begin_inset Formula $p\in[0,1]$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\Lambda(x,p\mu_{1}+(1-p)\mu_{2},\lambda)= & p\Lambda(x,\mu_{1},\lambda)+(1-p)\Lambda(x,\mu_{2},\lambda)\\
+\geq & p\Psi(\mu_{1},\lambda)+(1-p)\Psi(\mu_{2},\lambda).
+\end{align*}
+
+\end_inset
+
+Since the inequlity holds for any 
+\begin_inset Formula $x$
+\end_inset
+
+ in 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+, for 
+\begin_inset Formula $x$
+\end_inset
+
+ that gives the infimum at Lagrange multiplier 
+\begin_inset Formula $(p\mu_{1}+(1-p)\mu_{2},\lambda)$
+\end_inset
+
+, we have 
+\begin_inset Formula $\Lambda=\Psi$
+\end_inset
+
+ then
+\begin_inset Formula 
+\begin{align*}
+\Lambda(p\mu_{1}+(1-p)\mu_{2},\lambda) & \geq p\Psi(\mu_{1},\lambda)+(1-p)\Psi(\mu_{2},\lambda),
+\end{align*}
+
+\end_inset
+
+which also applies to 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ So 
+\begin_inset Formula $\Psi(\mu,\lambda)$
+\end_inset
+
+ is a concave function.
+ 
+\end_layout
+
+\begin_layout Standard
+(2).
+ 
+\begin_inset Formula $\Psi(\mu,\lambda)$
+\end_inset
+
+ is anywhere smaller than the optimal value for 
+\begin_inset Formula $\mu\geq0$
+\end_inset
+
+.
+ Since for any 
+\begin_inset Formula $x_{0}$
+\end_inset
+
+ satisfying the constraint:
+\begin_inset Formula 
+\begin{align*}
+\Psi(\mu,\lambda) & \leq\Lambda(x_{0},\mu,\lambda)\leq f(x_{0}),
+\end{align*}
+
+\end_inset
+
+then when 
+\begin_inset Formula $x_{0}$
+\end_inset
+
+ is the optimal point, we have 
+\begin_inset Formula $\Psi(\mu,\lambda)\leq optimal$
+\end_inset
+
+.
+ This condition implies that any triple 
+\begin_inset Formula $(x_{feasible},\mu\geq0,\lambda)$
+\end_inset
+
+ gives a estimation of the optimal value:
+\begin_inset Formula 
+\begin{align*}
+optimal\in & [\Psi(\mu,\lambda),f(x_{feasible})].
+\end{align*}
+
+\end_inset
+
+If the interval can be lowered to zero, we have at point 
+\begin_inset Formula $x_{feasible}$
+\end_inset
+
+, the optimal value is achieved.
+ 
+\end_layout
+
+\begin_layout Standard
+Then if we can find the maximum of the concave function 
+\begin_inset Formula $\Psi(\mu,\lambda)$
+\end_inset
+
+ which is in principle not hard, it gives the best lower band estimation
+ of the optimal value.
+ The dual problem is then
+\begin_inset Formula 
+\begin{align*}
+maximize: & \Psi(\mu,\lambda)\\
+subject\ to: & \mu\geq0.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+SVM 
+\end_layout
+
+\begin_layout Standard
+To solve the following problem
+\begin_inset Formula 
+\begin{align*}
+\arg\min_{\{w,b\}} & \frac{1}{2}|w|^{2},\\
+s.t. & y^{i}(b+w^{T}x^{i})-1\geqslant0\\
+ & y_{min}(b+w^{T}x_{min})=1,
+\end{align*}
+
+\end_inset
+
+its Lagrange dual problem reads:
+\begin_inset Formula 
+\begin{align*}
+\Psi(\mu,b)= & \inf_{\{w,b\}}[\frac{1}{2}|w|^{2}+\mu_{i}(1-y^{i}(b+w^{T}x^{i}))].
+\end{align*}
+
+\end_inset
+
+Derivative with respect to 
+\begin_inset Formula $w$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ gives
+\begin_inset Formula 
+\begin{align*}
+0= & w_{j}-\sum_{i}\mu_{i}y^{i}x_{j}^{i},\\
+0= & \sum_{i}\mu_{i}y^{i}.
+\end{align*}
+
+\end_inset
+
+Substituting back gives 
+\begin_inset Formula 
+\begin{align*}
+\Psi(\mu,b)= & [-\frac{1}{2}\sum_{i,j,m}\mu_{i}y^{i}x_{m}^{i}\mu_{j}y^{j}x_{m}^{j}+\sum_{i}\mu_{i}].
+\end{align*}
+
+\end_inset
+
+Then the dual problem becomes 
+\begin_inset Formula 
+\begin{align*}
+maximize: & \Psi(\mu,b)\\
+subject\ to: & \sum_{i}\mu_{i}y^{i}=0\\
+ & \mu>0
+\end{align*}
+
+\end_inset
+
+Solving for 
+\begin_inset Formula $\mu$
+\end_inset
+
+ gives that
+\begin_inset Formula 
+\begin{align*}
+0= & -\sum_{j,m}y^{i}x_{m}^{i}\mu_{j}y^{j}x_{m}^{j}+1-by^{i}\\
+0= & -\sum_{m}y^{i}x_{m}^{i}w_{m}+1-by^{i}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Ensemble methods
+\end_layout
+
+\begin_layout Subsection
+Bagging and Boosting
+\end_layout
+
+\begin_layout Section
+Graphical models
+\end_layout
+
+\begin_layout Subsection
+Conditional probability expressed in graphs
+\end_layout
+
+\begin_layout Standard
+Consider the joint distribution of 
+\begin_inset Formula $N$
+\end_inset
+
+ random variables 
+\begin_inset Formula $\{\boldsymbol{x}_{n}\}$
+\end_inset
+
+, it can be expressed in terms of the conditonal probability as
+\begin_inset Formula 
+\begin{align*}
+p(\{\boldsymbol{x}_{n}\})= & \prod_{n}p(\boldsymbol{x}_{n}|x_{1}\cdots x_{n-1}).
+\end{align*}
+
+\end_inset
+
+This expression on the right hand side is universal, however, it choose
+ a special order of indexes.
+ We can farily choose other ordering.
+ 
+\end_layout
+
+\begin_layout Standard
+The expression on the right hand side can be expressed with a graph.
+ If the graph is complete: (1) there are edges between any two nodes; (2)
+ no nodes form a cyclic path, then we can permutate the label of the nodes
+ with the topology of the graph unchanged.
+\end_layout
+
+\begin_layout Standard
+In the case of three random variables, 
+\end_layout
+
+\begin_layout Part
+Unsupervised Learning Algorithms
+\end_layout
+
+\begin_layout Section
+K-means
+\end_layout
+
+\begin_layout Part
+General Machinelearning Principles
+\end_layout
+
+\begin_layout Subsection
+Theorems
+\end_layout
+
+\begin_layout Subsubsection*
+No free lunch theorem:
+\end_layout
+
+\begin_layout Standard
+It states that any two optimization algorithms are equivalent when their
+ performance is averaged across all possible problems.
+ In the case of machine learning, say we have two algortihms A and B, both
+ dealing with a supervised learning problem.
+ The problem can be characterized by all the possible values of predictors
+ and outcomes.
+ In the ususal case, we may use cross-validation to find the algorithm that
+ performs better on the sampling of the problem.
+ Then question is then does this cross-validation picks the algorithm with
+ better performance.
+ Actually the answer is no if the future problem the algorithm will be facing
+ is way different from the sampling used to train the algorithm.
+ However, the anser is yes if it is the other way.
+ No free lunch meal tells us if the future problem is random both A and
+ B are equal to random guessing.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Occam's razor
+\end_layout
+
+\begin_layout Standard
+Entities should not be multiplied without necessity.
+ If two algorithms can explain the sample with similar accuracy, the one
+ which is simplier generate better.
+ This claim can be justified if the universe we live in contains problem
+ that admits simple explanation.
+ But what is simplicity? Maybe after figuring out the meaning of simplicity,
+ this is just a self-fullfil statement.
+ 
+\end_layout
+
+\begin_layout Section
+Online Machine Learning
+\end_layout
+
+\begin_layout Section*
+RLS
+\end_layout
+
+\begin_layout Standard
+Denoting 
+\begin_inset Formula $\Gamma_{i}=a_{i}^{-1}$
+\end_inset
+
+, we have
+\begin_inset Formula 
+\begin{align*}
+\boldsymbol{\Gamma}_{i-1}\boldsymbol{a}_{i-1}=\boldsymbol{\Gamma}_{i-1}(\boldsymbol{a}_{i}-\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T})= & 1\\
+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}(\boldsymbol{a}_{i}-\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T})= & \boldsymbol{x}_{i}^{T}\\
+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{a}_{i}= & (1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i})\boldsymbol{x}_{i}^{T}\\
+\frac{\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{a}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}= & \boldsymbol{x}_{i}^{T}\\
+\frac{\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}= & \boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}
+\end{align*}
+
+\end_inset
+
+Iterative relation for 
+\begin_inset Formula $\Gamma$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+1= & \boldsymbol{\Gamma}_{i}(\boldsymbol{a}_{i-1}+\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T})\\
+1= & 1+\Delta_{i}\boldsymbol{a}_{i-1}+\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\\
+0= & \Delta_{i}+\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\\
+\Delta_{i}= & -\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\\
+\boldsymbol{\Gamma}_{i}= & \boldsymbol{\Gamma}_{i-1}-\frac{\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}.\\
+\\
+\boldsymbol{\Gamma}_{i-1}= & \boldsymbol{\Gamma}_{i}+\frac{\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}}{1-\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}.
+\end{align*}
+
+\end_inset
+
+Iterative relation for 
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\hat{\boldsymbol{\theta}}_{i}= & \boldsymbol{\Gamma}_{i}\boldsymbol{b}_{i}=\boldsymbol{\Gamma}_{i}(\boldsymbol{b}_{i-1}+\boldsymbol{x}_{i}y_{i})\\
+= & \hat{\boldsymbol{\theta}}_{i-1}-\frac{\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}\boldsymbol{b}_{i-1}+\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}y_{i}\\
+= & \hat{\boldsymbol{\theta}}_{i-1}-\frac{\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}+\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}y_{i}\\
+\hat{\boldsymbol{\theta}}_{i}= & \hat{\boldsymbol{\theta}}_{i-1}-\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+\\
+ & \hat{\boldsymbol{\theta}}_{i}+\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i}-y_{i})
+\end{align*}
+
+\end_inset
+
+Iterative relation for 
+\begin_inset Formula $M$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+iM_{i}= & (-\boldsymbol{b}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{b}_{i}+c_{i})\\
+= & -(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})\hat{\boldsymbol{\theta}}_{i}+c_{i}\\
+= & -(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})(\hat{\boldsymbol{\theta}}_{i-1}-\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i}))+c_{i}\\
+= & -(\boldsymbol{b}_{i-1}^{T}\hat{\boldsymbol{\theta}}_{i-1}+\boldsymbol{x}_{i}^{T}y_{i}\hat{\boldsymbol{\theta}}_{i-1})+(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+c_{i}\\
+= & (i-1)M_{i-1}-y_{i}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}+(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+y_{i}y_{i}\\
+= & (i-1)M_{i-1}-y_{i}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}+\boldsymbol{b}_{i-1}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+\boldsymbol{x}_{i}^{T}y_{i}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+y_{i}y_{i}\\
+= & (i-1)M_{i-1}-y_{i}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}+\boldsymbol{b}_{i-1}^{T}\frac{\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+\boldsymbol{x}_{i}^{T}y_{i}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+y_{i}y_{i}\\
+= & (i-1)M_{i-1}-y_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}+y_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+= & (i-1)M_{i-1}+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}+y_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}-y_{i})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+= & (i-1)M_{i-1}+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}+y_{i}\frac{\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}-y_{i})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+= & (i-1)M_{i-1}+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}-\frac{y_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+iM_{i}= & (i-1)M_{i-1}+\frac{(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})^{2}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}
+\end{align*}
+
+\end_inset
+
+Next, we derive the inverse relation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\boldsymbol{\Gamma}_{i}\boldsymbol{a}_{i}=\boldsymbol{\Gamma}_{i}(\boldsymbol{a}_{i-1}+\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T})= & 1\\
+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}(\boldsymbol{a}_{i-1}+\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T})= & \boldsymbol{x}_{i}^{T}\\
+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{a}_{i-1}= & (1-\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i})\boldsymbol{x}_{i}^{T}\\
+\frac{\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{a}_{i-1}}{1-\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}}= & \boldsymbol{x}_{i}^{T}\\
+\frac{\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}}{1-\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}}= & \boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}
+\end{align*}
+
+\end_inset
+
+Iterative relation for 
+\begin_inset Formula $\Gamma$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+1= & \boldsymbol{\Gamma}_{i-1}(\boldsymbol{a}_{i}-\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T})\\
+1= & 1+\Delta_{i}\boldsymbol{a}_{i}-\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\\
+0= & \Delta_{i}-\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\\
+\Delta_{i}= & \boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\\
+\boldsymbol{\Gamma}_{i-1}= & \boldsymbol{\Gamma}_{i}+\frac{\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}}{1-\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}}\\
+\boldsymbol{\Gamma}_{i-1}= & \boldsymbol{\Gamma}_{i}+\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}
+\end{align*}
+
+\end_inset
+
+Iterative relation for 
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\hat{\boldsymbol{\theta}}_{i-1}= & \boldsymbol{\Gamma}_{i-1}\boldsymbol{b}_{i-1}=\boldsymbol{\Gamma}_{i-1}(\boldsymbol{b}_{i}-\boldsymbol{x}_{i}y_{i})\\
+= & \hat{\boldsymbol{\theta}}_{i}+\frac{\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}}{1-\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}}\boldsymbol{b}_{i}-\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}y_{i}\\
+= & \hat{\boldsymbol{\theta}}_{i}+\frac{\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}}{1-\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i}-\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}y_{i}\\
+= & \hat{\boldsymbol{\theta}}_{i}+\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i}-y_{i})
+\end{align*}
+
+\end_inset
+
+Iterative relation for 
+\begin_inset Formula $M$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+iM_{i}= & (-\boldsymbol{b}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{b}_{i}+c_{i})\\
+= & -(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})\hat{\boldsymbol{\theta}}_{i}+c_{i}\\
+= & -(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})(\hat{\boldsymbol{\theta}}_{i-1}-\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i}))+c_{i}\\
+= & -(\boldsymbol{b}_{i-1}^{T}\hat{\boldsymbol{\theta}}_{i-1}+\boldsymbol{x}_{i}^{T}y_{i}\hat{\boldsymbol{\theta}}_{i-1})+(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+c_{i}\\
+= & (i-1)M_{i-1}-y_{i}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}+(\boldsymbol{b}_{i-1}^{T}+\boldsymbol{x}_{i}^{T}y_{i})\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+y_{i}y_{i}\\
+= & (i-1)M_{i-1}-y_{i}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}+\boldsymbol{b}_{i-1}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+\boldsymbol{x}_{i}^{T}y_{i}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+y_{i}y_{i}\\
+= & (i-1)M_{i-1}-y_{i}\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}+\boldsymbol{b}_{i-1}^{T}\frac{\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+\boldsymbol{x}_{i}^{T}y_{i}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+y_{i}y_{i}\\
+= & (i-1)M_{i-1}-y_{i}(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}+y_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+= & (i-1)M_{i-1}+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}+y_{i}\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i}\boldsymbol{x}_{i}-y_{i})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+= & (i-1)M_{i-1}+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}+y_{i}\frac{\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}-y_{i})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+= & (i-1)M_{i-1}+(\frac{\boldsymbol{\theta}_{i-1}^{T}\boldsymbol{x}_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}-\frac{y_{i}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}})(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})\\
+= & (i-1)M_{i-1}+\frac{(\boldsymbol{x}_{i}^{T}\hat{\boldsymbol{\theta}}_{i-1}-y_{i})^{2}}{1+\boldsymbol{x}_{i}^{T}\boldsymbol{\Gamma}_{i-1}\boldsymbol{x}_{i}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
